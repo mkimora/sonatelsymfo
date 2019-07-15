@@ -24,6 +24,7 @@ class EmployeController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/", name="home")
      */
@@ -32,8 +33,11 @@ class EmployeController extends AbstractController
         return $this->render('employe/home.html.twig');
     }
 
+
     /**
      * @Route("employe/new", name="sonatel_create")
+     * @Route("employe/{id}/edit", name="sonatel_edit")
+     * @Route("employe/liste/{id}", name="liste_edit")
      */
     public function form(Employe $employe=null, Request $request, ObjectManager $manager)
     {
@@ -66,7 +70,9 @@ class EmployeController extends AbstractController
         }
 
         return $this->render('employe/create.html.twig', [
-            'formEmploye' => $form->createView()
+            'formEmploye' => $form->createView(),
+            'editMode' => $employe->getId() !== null,
+            'supMode' => $employe->getId() !== null
         ]);
     }
 
